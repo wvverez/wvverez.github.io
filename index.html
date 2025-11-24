@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🐧 WVVEREZ - Red Team</title>
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
     body {
         background-color: #111;
@@ -15,9 +15,10 @@
         text-align: center;
     }
 
-    /* Título con neón azul-cian */
+    /* TÍTULO */
     .title {
-        font-size: 3em;
+        font-family: 'Orbitron', monospace;
+        font-size: 3.5em;
         color: #00ffff;
         text-shadow:
             0 0 5px #00ffff,
@@ -48,32 +49,34 @@
         }
     }
 
-    /* Foto principal debajo del título */
+    /* FOTO PRINCIPAL */
     .main-img {
-        height: 180px; /* tamaño más pequeño */
+        height: 180px;
         border-radius: 10px;
         margin: 10px auto 30px auto;
         display: block;
     }
 
-    h3 {
-        color: #999;
-    }
-
-    .card {
-        background: #1a1a1a;
+    /* SOBRE MÍ - estilo código */
+    .about-code {
+        background-color: #0d0d0d;
+        border: 2px solid #00ffff;
         border-radius: 10px;
         padding: 20px;
-        margin: 20px auto;
         max-width: 800px;
+        margin: 20px auto;
         text-align: left;
+        font-family: 'Courier New', monospace;
+        color: #00ffff;
+        box-shadow: 0 0 20px #00ffff80;
+        white-space: pre-wrap;
     }
 
     .button-group a, .project-btn {
         display: inline-block;
         padding: 10px 20px;
         margin: 10px 5px;
-        background: #00ffff; /* azul cian */
+        background: #00ffff;
         color: #111;
         text-decoration: none;
         border-radius: 5px;
@@ -82,7 +85,7 @@
     }
 
     .button-group a:hover, .project-btn:hover {
-        background: #00cccc; /* azul más oscuro al hover */
+        background: #00cccc;
     }
 
     .skills img {
@@ -114,13 +117,15 @@
     </div>
 
     <!-- SOBRE MÍ -->
-    <div class="card">
-        <h2>Sobre mí</h2>
-        <p>
-            ¡Bienvenidos a mi Blog! ~ wvverez<br>
-            wvverez es un joven entusiasta de la ciberseguridad más específicamente en Hacking Web.<br>
-            Todos los write-ups han sido ejecutados EN ENTORNOS CONTROLADOS.
-        </p>
+    <div class="about-code">
+<code>
+¡Bienvenidos a mi Blog! ~ wvverez
+wvverez es un joven entusiasta de la ciberseguridad,
+más específicamente en Hacking Web.
+
+Todos los write-ups han sido ejecutados
+EN ENTORNOS CONTROLADOS.
+</code>
     </div>
 
     <!-- PROYECTOS / CTFs -->
@@ -176,4 +181,3 @@
 
 </body>
 </html>
-
