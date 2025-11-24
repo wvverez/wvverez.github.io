@@ -1,91 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WVVEREZ</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WVVEREZ</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    body {
+        background-color: #111;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    /* Neon Title */
+    .title {
+        font-size: 3em;
+        text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+        animation: neonGlow 1.5s ease-in-out infinite alternate;
+        margin: 20px 0;
+    }
+
+    @keyframes neonGlow {
+        from {
+            text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+        }
+        to {
+            text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14, 0 0 50px #39ff14;
+        }
+    }
+
+    h3 {
+        color: #999;
+    }
+
+    .main-img {
+        height: 300px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+    .card {
+        background: #1a1a1a;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 800px;
+        text-align: left;
+    }
+
+    .button-group a, .project-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 5px;
+        background: #39ff14;
+        color: #111;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .button-group a:hover, .project-btn:hover {
+        background: #00cc00;
+    }
+
+    .skills img {
+        margin: 5px;
+        height: 40px;
+    }
+
+    .github-stats img {
+        margin: 10px;
+        border-radius: 10px;
+    }
+</style>
 </head>
 <body>
 
-    <!-- MENÚ SUPERIOR -->
-    <nav class="menu">
-        <button class="menu-btn">☰</button>
-        <div class="menu-content">
-            <a href="writeups.html">Writeups</a>
-            <a href="#contacto">Contacto</a>
-        </div>
-    </nav>
+    <!-- HEADER / FOTO -->
+    <img class="main-img" src="gato.jpeg" alt="Foto principal">
 
-    <!-- FOTO PRINCIPAL -->
-    <img src="gato.jpeg" alt="Foto" width="300" height="200" class="main-img">
+    <!-- TÍTULO NEÓN -->
+    <h1 class="title">WVVEREZ</h1>
+    <p class="subtitle">Ciberseguridad • Red Team</p>
 
-    <div class="container">
+    <!-- BOTONES DESTACADOS -->
+    <div class="button-group">
+        <a href="#proyectos">Ver Proyectos</a>
+        <a href="#contacto">Contacto</a>
+    </div>
 
-        <!-- TÍTULO CON EFECTO FOSFORITO -->
-        <h1 class="title neon">WVVEREZ</h1>
-        <p class="subtitle">Ciberseguridad • Red Team</p>
+    <!-- SOBRE MÍ -->
+    <div class="card">
+        <h2>Sobre mí</h2>
+        <p>
+            ¡Bienvenidos a mi Blog! ~ wvverez<br>
+            wvverez es un joven entusiasta de la ciberseguridad más específicamente en Hacking Web.<br>
+            Todos los write-ups han sido ejecutados EN ENTORNOS CONTROLADOS.
+        </p>
+    </div>
 
-        <!-- Botones destacados -->
-        <div class="button-group">
-            <a href="#proyectos" class="big-btn">Ver Proyectos</a>
-            <a href="#contacto" class="big-btn">Contacto</a>
-        </div>
+    <!-- PROYECTOS / CTFs -->
+    <div id="proyectos" class="card">
+        <h2>Proyectos</h2>
+        <div class="project-list">
+            <div class="project">
+                <h3>ACEITUNO</h3>
+                <p>Dificultad CTF: AVANZADO.</p>
+                <a href="aceituno.html" class="project-btn">Ver proyecto</a>
+            </div>
 
-        <!-- Sobre mí -->
-        <div class="card fade-in">
-            <h2>Sobre mí</h2>
-            <p>
-                wqFCaWVudmVuaWRvcyBhIG1pIEJsb2chIH4gd3Z2ZXJleg== 
+            <div class="project">
+                <h3>FRUITS</h3>
+                <p>Dificultad CTF: FÁCIL</p>
+                <a href="fruits.html" class="project-btn">Ver proyecto</a>
+            </div>
 
-                ¡Bienvenidos a mi Blog! ~ wvverez
-                
-                ¿Quién es "Wvverez"? --> wvverez es un joven entusiasta de 
-                la ciberseguridad más específicamente en el ámbito Hacking Web.
-
-                Aclarar que todos los write ups de este portafolio han sido ejecutados 
-                EN ENTORNOS CONTROLADOS.
-            </p>
-        </div>
-
-        <!-- PROYECTOS / CTFs -->
-        <div id="proyectos" class="card fade-in">
-            <h2>Proyectos</h2>
-            <div class="project-list">
-
-                <div class="project">
-                    <h3>ACEITUNO</h3>
-                    <p>Dificultad CTF: AVANZADO.</p>
-                    <a href="aceituno.html" class="project-btn">Ver proyecto</a>
-                </div>
-
-                <div class="project">
-                    <h3>FRUITS</h3>
-                    <p>Dificultad CTF: FÁCIL</p>
-                    <a href="fruits.html" class="project-btn">Ver proyecto</a>
-                </div>
-
-                <div class="project">
-                    <h3>Proyecto 3</h3>
-                    <p>Aplicación pequeña pero poderosa.</p>
-                    <a href="proyecto3.html" class="project-btn">Ver proyecto</a>
-                </div>
-
+            <div class="project">
+                <h3>Proyecto 3</h3>
+                <p>Aplicación pequeña pero poderosa.</p>
+                <a href="proyecto3.html" class="project-btn">Ver proyecto</a>
             </div>
         </div>
+    </div>
 
-        <!-- CONTACTO -->
-        <div id="contacto" class="card fade-in">
-            <h2>Contacto</h2>
-            <p>Puedes escribirme a:</p>
-            <p><a class="email" href="mailto:wvverez@gmail.com">wvverez@gmail.com</a></p>
+    <!-- SKILLS & GITHUB STATS -->
+    <div class="card">
+        <h2>Skills and Tools</h2>
+        <div class="skills">
+            <a href="https://skillicons.dev">
+                <img src="https://skillicons.dev/icons?i=linux,obsidian,powershell,py,neovim,bash,kali,vscode,windows,github" />
+            </a>
         </div>
 
-        <footer>
-            © 2025 — Wvverez - Offensive security - Red Team - ethical hack
-        </footer>
-
+        <h2>GitHub Stats</h2>
+        <div class="github-stats">
+            <img src="https://github-readme-stats.vercel.app/api?username=0xnotkyo&show_icons=true&theme=transparent&hide_title=true&icon_color=FFFFFF&text_color=999999&title_color=999999" height="140em" />
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=0xnotkyo&show_icons=true&theme=transparent&hide_title=false&layout=compact&icon_color=999999&text_color=999999&title_color=999999" height="140em" />
+        </div>
     </div>
+
+    <!-- CONTACTO -->
+    <div id="contacto" class="card">
+        <h2>Contacto</h2>
+        <p>Puedes escribirme a:</p>
+        <p><a class="email" href="mailto:wvverez@gmail.com">wvverez@gmail.com</a></p>
+    </div>
+
+    <footer>
+        © 2025 — Wvverez
+    </footer>
 
 </body>
 </html>
+
