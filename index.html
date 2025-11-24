@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💻🛡️ WVVEREZ 🐧✨</title>
+<title>🐧 WVVEREZ - Red Team</title>
 <link rel="stylesheet" href="style.css">
 <style>
     body {
@@ -15,25 +15,42 @@
         text-align: center;
     }
 
-    /* Título fosforito con emojis */
+    /* Título con neón azul-cian */
     .title {
         font-size: 3em;
-        text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+        color: #00ffff;
+        text-shadow:
+            0 0 5px #00ffff,
+            0 0 10px #00ffff,
+            0 0 20px #00ffff,
+            0 0 40px #00ffff,
+            0 0 60px #00ffff;
         animation: neonGlow 1.5s ease-in-out infinite alternate;
         margin: 20px 0 10px 0;
     }
 
     @keyframes neonGlow {
         from {
-            text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+            text-shadow:
+                0 0 5px #00ffff,
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 40px #00ffff,
+                0 0 60px #00ffff;
         }
         to {
-            text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14, 0 0 50px #39ff14;
+            text-shadow:
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff,
+                0 0 50px #00ffff,
+                0 0 80px #00ffff;
         }
     }
 
+    /* Foto principal debajo del título */
     .main-img {
-        height: 180px; /* más pequeña */
+        height: 180px; /* tamaño más pequeño */
         border-radius: 10px;
         margin: 10px auto 30px auto;
         display: block;
@@ -56,7 +73,7 @@
         display: inline-block;
         padding: 10px 20px;
         margin: 10px 5px;
-        background: #39ff14;
+        background: #00ffff; /* azul cian */
         color: #111;
         text-decoration: none;
         border-radius: 5px;
@@ -65,14 +82,24 @@
     }
 
     .button-group a:hover, .project-btn:hover {
-        background: #00cc00;
+        background: #00cccc; /* azul más oscuro al hover */
+    }
+
+    .skills img {
+        margin: 5px;
+        height: 40px;
+    }
+
+    .github-stats img {
+        margin: 10px;
+        border-radius: 10px;
     }
 </style>
 </head>
 <body>
 
     <!-- TÍTULO -->
-    <h1 class="title">💻🛡️ WVVEREZ 🐧✨</h1>
+    <h1 class="title">🐧 WVVEREZ - Red Team</h1>
 
     <!-- FOTO PRINCIPAL -->
     <img class="main-img" src="gato.jpeg" alt="Foto principal">
@@ -117,6 +144,22 @@
                 <p>Aplicación pequeña pero poderosa.</p>
                 <a href="proyecto3.html" class="project-btn">Ver proyecto</a>
             </div>
+        </div>
+    </div>
+
+    <!-- SKILLS & TOOLS -->
+    <div class="card">
+        <h2>Skills and Tools</h2>
+        <div class="skills">
+            <a href="https://skillicons.dev">
+                <img src="https://skillicons.dev/icons?i=linux,obsidian,powershell,py,neovim,bash,kali,vscode,windows,github" />
+            </a>
+        </div>
+
+        <h2>GitHub Stats</h2>
+        <div class="github-stats">
+            <img src="https://github-readme-stats.vercel.app/api?username=0xnotkyo&show_icons=true&theme=transparent&hide_title=true&icon_color=FFFFFF&text_color=999999&title_color=999999" height="140em" />
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=0xnotkyo&show_icons=true&theme=transparent&hide_title=false&layout=compact&icon_color=999999&text_color=999999&title_color=999999" height="140em" />
         </div>
     </div>
 
