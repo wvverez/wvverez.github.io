@@ -15,6 +15,19 @@
         text-align: center;
     }
 
+    /* CABECERA CON GIF */
+    header {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    header img {
+        width: 180px;       /* ajusta el tamaño del GIF */
+        height: auto;
+        display: block;
+        margin: 20px auto 0 auto;
+    }
+
     /* TÍTULO */
     .title {
         font-family: 'Orbitron', monospace;
@@ -101,16 +114,20 @@
 </head>
 <body>
 
+    <!-- CABECERA CON EL GIF -->
+    <header>
+        <img src="images/divider.gif" alt="Gif de cabecera">
+    </header>
+
     <!-- TÍTULO -->
     <h1 class="title"> WVVEREZ </h1>
 
     <!-- FOTO PRINCIPAL -->
-   <img class="main-img" src="images/hollow-knight-knight.gif" alt="Foto principal">
+    <img class="main-img" src="images/hollow-knight-knight.gif" alt="Foto principal">
 
     <!-- SUBTÍTULO -->
     <p class="subtitle">Ciberseguridad • Red Team</p>
 
- 
     <!-- SOBRE MÍ -->
     <div class="about-code">
 <code>
@@ -156,7 +173,7 @@ EN ENTORNOS CONTROLADOS.
                 <img src="https://skillicons.dev/icons?i=linux,obsidian,powershell,py,neovim,bash,kali,vscode,windows,github" />
             </a>
         </div>
-
+    </div>
 
     <!-- CONTACTO -->
     <div id="contacto" class="card">
@@ -171,3 +188,4 @@ EN ENTORNOS CONTROLADOS.
 
 </body>
 </html>
+
