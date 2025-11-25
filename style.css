@@ -127,3 +127,23 @@ footer {
     color: #777;
     font-size: 0.9rem;
 }
+
+
+/* -------------------------------------------------- */
+/*   CABECERA GIF A TAMAÑO COMPLETO (AÑADIDO TUYO)    */
+/* -------------------------------------------------- */
+
+header {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header-gif {
+    width: 100%;    /* ocupa la línea completa */
+    height: auto;   /* mantiene proporción */
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
