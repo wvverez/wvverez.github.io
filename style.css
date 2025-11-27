@@ -128,9 +128,8 @@ footer {
     font-size: 0.9rem;
 }
 
-
 /* -------------------------------------------------- */
-/*   CABECERA GIF A TAMAÑO COMPLETO (AÑADIDO TUYO)    */
+/* CABECERA CON GIF A TAMAÑO COMPLETO - AÑADIDO       */
 /* -------------------------------------------------- */
 
 header {
@@ -140,10 +139,10 @@ header {
 }
 
 .header-gif {
-    width: 100%;    /* ocupa la línea completa */
-    height: auto;   /* mantiene proporción */
+    width: 100%;      /* Ocupa todo el ancho */
+    max-height: 300px;/* <-- Puedes cambiar esto */
+    object-fit: cover;/* Hace que se vea mejor si el GIF es irregular */
     display: block;
     margin: 0;
     padding: 0;
 }
-
