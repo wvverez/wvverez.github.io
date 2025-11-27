@@ -6,142 +6,142 @@
 <title> WVVEREZ </title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
-    body {
-        background-color: #111;
-        color: #fff;
-        font-family: 'Segoe UI', sans-serif;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
+body {
+background-color: #111;
+color: #fff;
+font-family: 'Segoe UI', sans-serif;
+margin: 0;
+padding: 0;
+text-align: center;
+}
 
-    /* CABECERA CON GIF */
-    header {
-        width: 100%;
-        padding: 10px 0;
-    }
+```
+/* CABECERA CON GIF */
+header {
+    width: 100%;
+    padding: 10px 0;
+}
 
-    header img {
-        width: 400px;       /* ajusta el tamaño del GIF */
-        height: auto;
-        display: block;
-        margin: 20px auto 0 auto;
-    }
+header img {
+    width: 400px;       /* ajusta el tamaño del GIF */
+    height: auto;
+    display: block;
+    margin: 20px auto 0 auto;
+}
 
-    /* TÍTULO */
-    .title {
-        font-family: 'Orbitron', monospace;
-        font-size: 3.5em;
-        color: #00ffff;
+/* TÍTULO */
+.title {
+    font-family: 'Orbitron', monospace;
+    font-size: 3.5em;
+    color: #00ffff;
+    text-shadow:
+        0 0 5px #00ffff,
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        0 0 60px #00ffff;
+    animation: neonGlow 1.5s ease-in-out infinite alternate;
+    margin: 20px 0 10px 0;
+}
+
+@keyframes neonGlow {
+    from {
         text-shadow:
             0 0 5px #00ffff,
             0 0 10px #00ffff,
             0 0 20px #00ffff,
             0 0 40px #00ffff,
             0 0 60px #00ffff;
-        animation: neonGlow 1.5s ease-in-out infinite alternate;
-        margin: 20px 0 10px 0;
     }
+    to {
+        text-shadow:
+            0 0 10px #00ffff,
+            0 0 20px #00ffff,
+            0 0 30px #00ffff,
+            0 0 50px #00ffff,
+            0 0 80px #00ffff;
+    }
+}
 
-    @keyframes neonGlow {
-        from {
-            text-shadow:
-                0 0 5px #00ffff,
-                0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 40px #00ffff,
-                0 0 60px #00ffff;
-        }
-        to {
-            text-shadow:
-                0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 30px #00ffff,
-                0 0 50px #00ffff,
-                0 0 80px #00ffff;
-        }
-    }
+/* FOTO PRINCIPAL */
+.main-img {
+    height: 180px;
+    border-radius: 10px;
+    margin: 10px auto 30px auto;
+    display: block;
+}
 
-    /* FOTO PRINCIPAL */
-    .main-img {
-        height: 180px;
-        border-radius: 10px;
-        margin: 10px auto 30px auto;
-        display: block;
-    }
+/* SOBRE MÍ - estilo código */
+.about-code {
+    background-color: #0d0d0d;
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    color: #00ffff;
+    box-shadow: 0 0 20px #00ffff80;
+    white-space: pre-wrap;
+}
 
-    /* FUNCTION GIF */
-    .function-gif {
-        width: 100%;
-        max-width: 350px;
-        display: block;
-        margin: 20px auto;
-        background: transparent;
-    }
+.button-group a, .project-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    background: #00ffff;
+    color: #111;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-    /* SOBRE MÍ - estilo código */
-    .about-code {
-        background-color: #0d0d0d;
-        border: 2px solid #00ffff;
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 800px;
-        margin: 20px auto;
-        text-align: left;
-        font-family: 'Courier New', monospace;
-        color: #00ffff;
-        box-shadow: 0 0 20px #00ffff80;
-        white-space: pre-wrap;
-    }
+.button-group a:hover, .project-btn:hover {
+    background: #00cccc;
+}
 
-    .button-group a, .project-btn {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 10px 5px;
-        background: #00ffff;
-        color: #111;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+.skills img {
+    margin: 5px;
+    height: 40px;
+}
 
-    .button-group a:hover, .project-btn:hover {
-        background: #00cccc;
-    }
+.github-stats img {
+    margin: 10px;
+    border-radius: 10px;
+}
 
-    .skills img {
-        margin: 5px;
-        height: 40px;
-    }
+```
 
-    .github-stats img {
-        margin: 10px;
-        border-radius: 10px;
-    }
 </style>
 </head>
 <body>
 
-    <!-- FOTO PRINCIPAL AÑADIDA AL INICIO -->
-    <img class="main-img" src="images/aceituno.png" alt="Foto Aceituno">
+```
+  <!-- CABECERA CON EL GIF -->
+<header>
+    <img class="header-gif" src="images/divider.gif" alt="Gif de cabecera">
+</header>
 
-    <!-- CABECERA CON EL GIF -->
-    <header>
-        <img class="header-gif" src="images/divider.gif" alt="Gif de cabecera">
-    </header>
+<!-- FOTO PRINCIPAL -->
+<img class="main-img" src="images/hollow-knight-knight.gif" alt="Foto principal">
 
-    <!-- FOTO PRINCIPAL ORIGINAL -->
-    <img class="main-img" src="images/hollow-knight-knight.gif" alt="Foto principal">
+<!-- SUBTÍTULO -->
+<p class="subtitle">Ciberseguridad • Red Team • Wvverez </p>
 
-    <!-- SUBTÍTULO -->
-    <p class="subtitle">Ciberseguridad • Red Team • Wvverez </p>
+<!-- FUNCTION GIF (AÑADIDO JUSTO DESPUÉS DEL SUBTÍTULO) -->
 
-    <!-- FUNCTION GIF (AÑADIDO JUSTO DESPUÉS DEL SUBTÍTULO) -->
-    <img class="function-gif" src="images/function.gif" alt="Function GIF">
+```
 
-    <!-- SOBRE MÍ -->
-    <div class="about-code">
+<img class="function-gif" src="images/function.gif" alt="Function GIF">
+
+```
+<!-- SOBRE MÍ -->
+<div class="about-code">
+
+```
+
 <code>
 ¡Bienvenidos a mi Blog! ~ wvverez
 
@@ -151,51 +151,54 @@ más específicamente en Hacking Web.
 Todos los write-ups han sido ejecutados
 EN ENTORNOS CONTROLADOS.
 </code>
-    </div>
+</div>
 
-    <!-- CTFS / CTFs -->
-    <div id="proyectos" class="card">
-        <h2>Proyectos</h2>
-        <div class="project-list">
-            <div class="project">
-                <h3>ACEITUNO</h3>
-                <p>Dificultad CTF: AVANZADO.</p>
-                <a href="aceituno.html" class="project-btn">Write UP</a>
-            </div>
+```
+<!-- CTFS / CTFs -->
+<div id="proyectos" class="card">
+    <h2>Proyectos</h2>
+    <div class="project-list">
+        <div class="project">
+            <h3>ACEITUNO</h3>
+            <p>Dificultad CTF: AVANZADO.</p>
+            <a href="aceituno.html" class="project-btn">Write UP</a>
+        </div>
 
-            <div class="project">
-                <h3>FRUITS</h3>
-                <p>Dificultad CTF: FÁCIL</p>
-                <a href="fruits.html" class="project-btn">Write UP</a>
-            </div>
+        <div class="project">
+            <h3>FRUITS</h3>
+            <p>Dificultad CTF: FÁCIL</p>
+            <a href="fruits.html" class="project-btn">Write UP</a>
+        </div>
 
-            <div class="project">
-                <h3> Microchoft </h3>
-                <p> Dificultad CTF = FÁCIL </p>
-                <a href="proyecto3.html" class="project-btn">Write up</a>
-            </div>
+        <div class="project">
+            <h3> Microchoft </h3>
+            <p> Dificultad CTF = FÁCIL </p>
+            <a href="proyecto3.html" class="project-btn">Write up</a>
         </div>
     </div>
+</div>
 
-    <!-- SKILLS & TOOLS -->
-    <div class="card">
-        <h2>Skills and Tools</h2>
-        <div class="skills">
-            <a href="https://skillicons.dev">
-                <img src="https://skillicons.dev/icons?i=linux,obsidian,powershell,py,neovim,bash,kali,vscode,windows,github" />
-            </a>
-        </div>
+<!-- SKILLS & TOOLS -->
+<div class="card">
+    <h2>Skills and Tools</h2>
+    <div class="skills">
+        <a href="<https://skillicons.dev>">
+            <img src="<https://skillicons.dev/icons?i=linux,obsidian,powershell,py,neovim,bash,kali,vscode,windows,github>" />
+        </a>
     </div>
+</div>
 
-    <!-- CONTACTO -->
-    <div id="contacto" class="card">
-        <h2>Contacto</h2>
-        <p><a class="email" href="mailto:wvverez@gmail.com">wvverez@gmail.com</a></p>
-    </div>
+<!-- CONTACTO -->
+<div id="contacto" class="card">
+    <h2>Contacto</h2>
+    <p><a class="email" href="mailto:wvverez@gmail.com">wvverez@gmail.com</a></p>
+</div>
 
-    <footer>
-        © 2025 — Wvverez - Pentester - Red Team 
-    </footer>
+<footer>
+    © 2025 — Wvverez - Pentester - Red Team
+</footer>
+
+```
 
 </body>
 </html>
