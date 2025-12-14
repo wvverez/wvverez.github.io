@@ -1,2 +1,2 @@
 # wvverez.github.io
-personal project. 
+Portafolio personal.
