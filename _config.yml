@@ -103,7 +103,7 @@ analytics:
 author:
   name             : "wvverez"
   avatar           : "/assets/images/avatar.png"
-  bio              : "Malware Development, Phising Operations, C/C++, Python, Linux"
+  bio              : "Malware Development, Phishing Operations, C/C++, Python, Linux"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
