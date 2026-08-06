@@ -30,4 +30,4 @@ tags:
 </p>
 
 
-Vamos a empezar lanzando trazas ICMP para ver si tenemos conectividad con la máquina víctima.
+Vamos a empezar lanzando trazas ICMP para ver si tenemos conectividad con la máquina víctima. Para ello podemos usar el comando `ping` 
