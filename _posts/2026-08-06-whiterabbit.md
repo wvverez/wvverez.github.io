@@ -30,4 +30,4 @@ tags:
 </p>
 
 
-Vamos a empezar lanzando trazas ICMP para ver si
+Vamos a empezar lanzando trazas ICMP para ver si tenemos conectividad con la máquina víctima.
