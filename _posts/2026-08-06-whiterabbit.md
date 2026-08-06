@@ -24,4 +24,10 @@ tags:
   - Restic
 ---
 
-Vamos a empezar lanzando trazas ICMP.
+
+<p align="center">
+  <img src="/assets/images/whiterabbit.jpg" alt="whiterabbit" width="500">
+</p>
+
+
+Vamos a empezar lanzando trazas ICMP para ver si
