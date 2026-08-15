@@ -21,4 +21,8 @@ tags:
   - Python
 ---
 
+<p align="center">
+  <img src="/assets/images/zeta.png" alt="zeta" width="500">
+</p>
+
 En este nuevo post vamos a estar creando un sencillo `stealer`
