@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Zeta Stealer - Un stealer para tokens de discord
+title: Zeta Stealer - Un stealer para robar tokens de discord
 excerpt: "¿Cómo de complejo suele ser para un atacante conseguir tokens de tus cuentas para ganar acceso completo?"
 date: 2026-08-15
 classes: wide
