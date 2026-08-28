@@ -12,6 +12,8 @@ categories:
   - Permutations
   - Factorial
   - Arrays
+  - Leetcode
+  - Code
 tags:
   - Combinatorics
   - Math
@@ -19,6 +21,8 @@ tags:
   - Factorial
   - Arrays
   - TypeScript
+  - Code
+  - Leetcode
 ---
 
 h
