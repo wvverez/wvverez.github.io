@@ -5,7 +5,7 @@ excerpt: "¿Cómo podemos encontrar la k-ésima permutación de 1 a n sin genera
 date: 2026-08-28
 classes: wide
 header:
-  teaser: /assets/images/leetcodehard.png
+  teaser: /assets/images/Leetcodehard.png
   teaser_home_page: true
 categories:
   - Math
@@ -25,4 +25,6 @@ tags:
   - Leetcode
 ---
 
-h
+<p align="center">
+  <img src="/assets/images/Leetcodehard.png" alt="leetcode" width="500">
+</p>
