@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 60. Permutation Sequence
+title: Permutation Sequence Problema
 excerpt: "¿Cómo podemos encontrar la k-ésima permutación de 1 a n sin generar todas las permutaciones posibles?"
 date: 2026-08-28
 classes: wide
