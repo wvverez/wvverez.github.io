@@ -27,3 +27,14 @@ tags:
 <p align="center">
   <img src="/assets/images/buffer.jpeg" alt="buffer" width="500">
 </p>
+
+---
+
+# Definición de la vulnerabilidad
+
+`Ret2libc` o (Return to libc) es una técnica de las más complejas a la hora de explotar `buffer overflows` que se utiliza para saltarse protecciones en un programa para ejecutar código malicioso de forma remota. Este tipo de ataque suele concatenarse una vez tenemos un buffer overflow en algún binario cuando no podemos ejecutar shellcodes debido a que estéa protegido con protecciones como `NX`.
+
+Lo que pasa en esta vuln es que en vez de meter nuestra `shellcode` podemos aprovecharnos de las llamadas que hacen a las funciones de la biblioteca estándar **libc** que ya están cargadas en la memoria de el binario.
+
+
+
