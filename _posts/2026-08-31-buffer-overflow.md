@@ -96,7 +96,7 @@ Bien una vez tenemos todo listo, antes de nada vamos a entender como funciona el
 
 Bueno esta función `strcpy` en C y C++ es bastante **vulnerable**. Lo que pasa con esta función es que no realiza ninguna verificación de los tamaños que se pasan de los buffers. Y esto concatena con `buffer overflows`.
 
-Para poder entender mejor una configuración vulnerable de este binario. Vamos a darle permisos SUID y grupo le asignaremos como `root`.
+Para poder entender mejor una configuración vulnerable de este binario. Vamos a darle permisos SUID y propietario le asignaremos como `root`.
 
 ```sh
 chown root:root wvverez
@@ -104,4 +104,38 @@ chmod u+s wvverez
 ```
 
 Cuando hacemos esto lo que estamos indicando es que cada vez que lo ejecute un usuario físico cualquiera, lo va a estar ejecutando como el `propietario` de dicho archivo, es decir `root`.
+
+Una vez listo podemos probar el propio **binario**. Aquí comparto alguna prueba de su flujo de ejecución y de la propia vulnerabilidad.
+
+```sh
+# ./wvverez "Hola"
+
+# ./wvverez $(python3 -c 'print("A"*1000)')
+Segmentation fault         ./wvverez $(python3 -c 'print("A"*1000)')
+```
+
+En la primera vez que lo hemos ejecutado lo que ha pasado es que en la variable **buffer** que le dimos un tamaño de `64` bytes, almacena lo que le pasemos como argumento, en nuestro caso "hola".
+
+Y en el segundo caso le estamos pasando 1000 letras A con `python` y de esa forma intenta almacenar más datos de los que tiene definidos esa variable. Y por ello corrompe por eso nos da un "Segmentation Fault".
+
+Una vez confirmado la vulnerabilidad lo primero que suelo hacer es revisar las `protecciones` de el binario para poder entender y saber mejor por donde podemos tirar.
+
+```sh
+─# checksec --file=wvverez
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      Symbols         FORTIFY Fortified       Fortifiable     FILE
+Partial RELRO   No canary found   NX enabled    PIE enabled     No RPATH   No RUNPATH   41 Symbols        No    0               1               wvverez
+
+```
+
+Confirmamos que no está protegido por `canarios` y que tiene NX habilitado es decir que el stack no es ejecutable por lo cual no vamos a poder utilizar ningún `shellcode` y que también tiene PIE habilitado es decir que las direcciones van variando.
+
+Con lo cual sabemos que no podemos ejecutar código directamente en la pila (esp). Es aquí donde podemos apoyarnos de **ret2libc** para abusar de las funciones de la biblioteca `libc`.
+
+Antes de entrar a fondo quiero tocar un poco más en detalle lo que está pasando cuando sobre-escribimos `datos`. Ya que cuando desbordamos el buffer estamos sobre escribiendo `registros` para 32 bits que fue para lo que lo compilamos. Es decir arquitectura **x86**. 
+
+Tenemos 3 que son de los primordiales para x86:
+
+`ESP`: Que apunta a lo más alto de la pila
+`EBP`: Marca el inicio de la pila
+`EIP`: Es la siguiente dirección en memoria a la que va a retornar nuestro programa
 
