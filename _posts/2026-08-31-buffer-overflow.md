@@ -136,6 +136,8 @@ Antes de entrar a fondo quiero tocar un poco más en detalle lo que está pasand
 Tenemos 3 que son de los primordiales para x86:
 
 `ESP`: Que apunta a lo más alto de la pila
+
 `EBP`: Marca el inicio de la pila
+
 `EIP`: Es la siguiente dirección en memoria a la que va a retornar nuestro programa
 
