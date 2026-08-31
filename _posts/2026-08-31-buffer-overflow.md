@@ -24,3 +24,6 @@ tags:
   - SUID
 ---
 
+<p align="center">
+  <img src="/assets/images/buffer.jpeg" alt="buffer" width="500">
+</p>
