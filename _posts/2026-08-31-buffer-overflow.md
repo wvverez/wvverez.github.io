@@ -58,4 +58,50 @@ echo 2 > /proc/sys/kernel/randomize_va_space
 
 Una vez ejecutes esto tendrás aleatoridad en las direcciones de `memoria` que es una capa extra de protección para evitar **buffer overflows**.
 
+De hecho si nos fijamos en el `binario`, que vamos a crear más adelante nos podemos fijar en la segunda línea la dirección de memoria de `libc` y que cada vez va a cambiar.
+
+```sh
+# ldd wvverez
+        linux-gate.so.1 (0xf7ed4000)
+        libc.so.6 => /usr/lib/i386-linux-gnu/libc.so.6 (0xf7c7f000)
+        /lib/ld-linux.so.2 (0xf7ed6000)
+
+```
+
+# Creando binario vulnerable
+
+Para explicarlo mejor vamos a crear el siguiente archivo en C
+
+```sh
+#include <stdio.h>
+
+void vuln(char *buff) {
+    char buffer[64];
+    strcpy(buffer, buff);
+}
+
+void main(int argc, char **argv) {
+    vuln(argv[1]);
+}
+```
+
+Este sería el código al estar en C deberemos compilarlo y después veremos como abusar de está técnica. Para poder compilar el binario lo hacemos de la siguiente forma:
+
+```sh
+gcc -fno-stack-protector -m32 vuln.c -o wvverez
+```
+
+Bien una vez tenemos todo listo, antes de nada vamos a entender como funciona el flujo de el binario. Primeramente va a esperar que el usuario introduzca datos como `parámetro` en el que lo que hace es copiar lo que le pasamos como argumento como una variable que la hemos llamado `buffer` con una función que por ahora desconocereis llamada "strcpy". 
+
+
+Bueno esta función `strcpy` en C y C++ es bastante **vulnerable**. Lo que pasa con esta función es que no realiza ninguna verificación de los tamaños que se pasan de los buffers. Y esto concatena con `buffer overflows`.
+
+Para poder entender mejor una configuración vulnerable de este binario. Vamos a darle permisos SUID y grupo le asignaremos como `root`.
+
+```sh
+chown root:root wvverez
+chmod u+s wvverez
+```
+
+Cuando hacemos esto lo que estamos indicando es que cada vez que lo ejecute un usuario físico cualquiera, lo va a estar ejecutando como el `propietario` de dicho archivo, es decir `root`.
 
