@@ -22,6 +22,7 @@ tags:
   - Libc
   - strcpy
   - SUID
+  - C code
 ---
 
 <p align="center">
