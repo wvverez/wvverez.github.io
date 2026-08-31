@@ -46,6 +46,16 @@ Lo que pasa en esta vuln es que en vez de meter nuestra `shellcode` podemos apro
 
 Para los que no sepáis para que sirve **libc**, es una parte fundamental de la programación en lenguaje `C` que proporciona muchas funciones que son muy usadas.
 
-Y por último entender que hace la protección `ASLR` 
+Y por último entender que hace la protección `ASLR`. 
+
+`ASLR` es una protección que consiste en aleatorizar la ubicación de las áreas clave de memoria en un binario una vez en ejecución. Lo cual complica mucho abusar de el binario.
+
+Para cualquier usuario que quiera activarlo para hacer pruebas necesitas `sudo` pero se activaría así:
+
+```sh
+echo 2 > /proc/sys/kernel/randomize_va_space
+```
+
+Una vez ejecutes esto tendrás aleatoridad en las direcciones de `memoria` que es una capa extra de protección para evitar **buffer overflows**.
 
 
