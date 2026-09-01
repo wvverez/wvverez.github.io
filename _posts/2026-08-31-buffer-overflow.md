@@ -141,3 +141,6 @@ Tenemos 3 que son de los primordiales para x86:
 
 `EIP`: Es la siguiente dirección en memoria a la que va a retornar nuestro programa
 
+<p align="center">
+  <img src="/assets/images/pila.png" alt="buffer" width="500">
+</p>
