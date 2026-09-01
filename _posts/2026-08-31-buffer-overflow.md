@@ -328,5 +328,18 @@ Cuando tenemos `ASLR` activado como hemos hablado antes podemos abusar de las fu
 
 En este caso para empezar debemos seleccionar una de las direcciones base que tiene `libc` que se obtienen de la siguiente forma:
 
+```sh
+# ldd wvverez | grep libc | awk 'NF{print $NF}' | tr -d '()'
+0xf7c84000
+
+# for i in $(seq 1 100); do ldd wvverez | grep libc | awk 'NF{print $NF}' | grep "0xf7c84000" | tr -d '()'; done
+0xf7c84000
+```
+
+El problema es que en cada dirección es que en cada ejecución cambia, pero vemos que se nos repite, con lo cual hay repeticiones. La idea para explotar es conseguir los offsets de `system`, `exit` y `bin_sh` para después acabarle sumando la dirección base de `libc` que pillamos que es la que elegimos y después calcular las direcciones de `system` `exit` y `bin_sh` reales.
+
+Con lo cual lo que hay que hacer es como una especie de `fuerza bruta` ejecutando el exploit que hagamos pasando esas variables como argumentos varias veces para que pete y cuando apunte a la base de `libc` que podamos calcular los offsets y conseguir las direcciones reales y que llame al sistema para darnos una bash.
+
+
 
 
