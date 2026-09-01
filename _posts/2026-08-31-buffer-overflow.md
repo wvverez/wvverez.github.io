@@ -144,3 +144,29 @@ Tenemos 3 que son de los primordiales para x86:
 <p align="center">
   <img src="/assets/images/pila.png" alt="buffer" width="500">
 </p>
+
+Ya digo que existen muchos más registros que no estamos teniendo en cuenta pero para este ejemplo con localizar estos 3 `registros` para abusar de el buffer overflow `ret2libc`.
+
+Empieza por el `ESP` y continua sobre escribiendo el resto de registros.
+
+Para poder ir viendo como se van sobre escribiendo estos `registros` existe `gdb`, que nos permite analizar ese binario a `bajo nivel` como funciona todo el binario.
+
+Lo primero que se suele hacer para explotar un **buffer overflow** es calcular el número exacto de bytes que hay que pasar para llegar a el `EIP`.
+
+Para esto podemos probar lo siguiente:
+
+```sh
+# gdb -q wvverez
+Reading symbols from wvverez...
+(No debugging symbols found in wvverez)
+(gdb) r $(python3 -c 'print("A"*100)')
+Starting program: /root/wvverez $(python3 -c 'print("A"*100)')
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+0x41414141 in ?? ()
+(gdb)
+```
+
+Como podemos ver `0x41414141` son basícamente nuestras "A" que sobre escribimos en el registro `EIP`. Esto es mucho más visual si le metemos al gdb alguna extensión como el `peda` o `gef`. Ya que así solo nos va a mostrar el EIP y si quisieramos ver más registros es recomendable meterle alguno de ellos.
