@@ -320,3 +320,13 @@ gef➤
 
 Y confirmamos que el offset es el correcto ya que el registro EIP se sobre escribe con nuestras B.
 
+# Explotando y entendiendo vulnerabilidad ret2libc
+
+Bien una vez en este punto al tener habilitado NX aunque no disponga de ningún canario, lo primero que tenemos que tener claro es que no podremos ejecutar `shellcodes` lo cual es una clara desventaja y no presenta ninguna otra vulnerabilidad como por ej un format string o demás, ni a primera vista nada. También tiene habilitado `ASLR`.
+
+Cuando tenemos `ASLR` activado como hemos hablado antes podemos abusar de las funciones de `libc`. En este caso al estar ASLR habilitado es algo más complicado que un ret2libc con ASLR `deshabilitado`.
+
+En este caso para empezar debemos seleccionar una de las direcciones base que tiene `libc` que se obtienen de la siguiente forma:
+
+
+
