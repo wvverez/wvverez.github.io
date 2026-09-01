@@ -170,3 +170,52 @@ Program received signal SIGSEGV, Segmentation fault.
 ```
 
 Como podemos ver `0x41414141` son basícamente nuestras "A" que sobre escribimos en el registro `EIP`. Esto es mucho más visual si le metemos al gdb alguna extensión como el `peda` o `gef`. Ya que así solo nos va a mostrar el EIP y si quisieramos ver más registros es recomendable meterle alguno de ellos.
+
+Para este ejemplo os voy a enseñar a hacerlo con `gef` que personalmente es mi preferido primero para añadirlo necesitais ejecutar lo siguiente:
+
+```sh
+# bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+[+] Added GEF source to /root/.gdbinit
+```
+
+Una vez añadido si ahora volvemos a probar a ejecutarlo y volver a pasarle como input las `A` deberíamos poder visualizar el resto de registros sobre escritos sin contar EIP (Ya que ese ya lo podíamos visualizar sin gef).
+
+```sh
+# gdb -q wvverez
+[ Legend: Modified register | Code | Heap | Stack | String ]
+───────────────────────────────────────────────────────────────────────────────────────────────────────── registers ────
+$eax   : 0xffffd1c0  →  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA[...]"
+$ebx   : 0x41414141 ("AAAA"?)
+$ecx   : 0xffffd500  →  0x48530041 ("A"?)
+$edx   : 0xffffd223  →  0xffd20041 ("A"?)
+$esp   : 0xffffd210  →  "AAAAAAAAAAAAAAAAAAAA"
+$ebp   : 0x41414141 ("AAAA"?)
+$esi   : 0x0
+$edi   : 0xf7ffcc60  →  0x00000000
+$eip   : 0x41414141 ("AAAA"?)
+$eflags: [zero carry PARITY adjust SIGN trap INTERRUPT direction overflow RESUME virtualx86 identification]
+$cs: 0x23 $ss: 0x2b $ds: 0x2b $es: 0x2b $fs: 0x00 $gs: 0x63
+───────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ────
+0xffffd210│+0x0000: "AAAAAAAAAAAAAAAAAAAA"       ← $esp
+0xffffd214│+0x0004: "AAAAAAAAAAAAAAAA"
+0xffffd218│+0x0008: "AAAAAAAAAAAA"
+0xffffd21c│+0x000c: "AAAAAAAA"
+0xffffd220│+0x0010: "AAAA"
+0xffffd224│+0x0014: 0xffffd200  →  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+0xffffd228│+0x0018: 0x56558eec  →  0x56556130  →  <__do_global_dtors_aux+0000> endbr32
+0xffffd22c│+0x001c: 0xf7d99f21  →   add esp, 0x10
+─────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:32 ────
+[!] Cannot disassemble from $PC
+[!] Cannot access memory at address 0x41414141
+─────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ────
+[#0] Id 1, Name: "wvverez", stopped 0x41414141 in ?? (), reason: SIGSEGV
+───────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+gef➤ 
+```
+
+Personalmente creo que la diferencia es considerable. Con lo cual vemos que esta sobre escribiendo más registros como `EBP`, `ESP` Y `EIP` vemos que apunta `EIP` a 0x414141414141 que son basícamente nuestras "A".
+
+# Calculando el offset de el binario
+
+Bien en este punto es interesante que podamos conocer 
