@@ -216,4 +216,22 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 192.168.91.227 - - [22/Nov/2026 15:44:56] "GET /favicon.ico HTTP/1.1" 404 -
 ```
 
+Con esto confirmamos que el admin entra a la URL. Ahora podríamos hacer un cookie hijacking abusando de un XSS pero la cookie tiene la flag Http Only. Así que no podremos robar cookie. Usando Burpsuite como MiTM para interceptar estas peticiones HTTP vemos que pasa la petición a la ruta `/api/messages` esto puede ser interesante a tener en cuenta. Y vemos que en `/api/info` tenemos la cookie proporcionada.
+
+```sh
+{"host":"guitjapeo.thl","x-real-ip":"192.168.91.191","x-forwarded-for":"192.168.91.191","x-forwarded-proto":"https","connection":"close","user-agent":"Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","accept-language":"en-US,en;q=0.5","accept-encoding":"gzip, deflate, br, zstd","cookie":"connect.sid=s%3At6UB4mISs_-DxPoOJscFdLYyUic3kGX-.LZTpt22Qv7ptTQsQsnsxvgZ7K8tiqhmiNt4DhZCwGAc","upgrade-insecure-requests":"1","sec-fetch-dest":"document","sec-fetch-mode":"navigate","sec-fetch-site":"none","sec-fetch-user":"?1","priority":"u=0, i"}
+```
+
+# XSS (Cross Site Scripting)
+
+Con lo cual ya podemos tener algo de donde poder sacar la cookie de Admin nos falta buscar algo para poder explotarlo. En la página principal veíamos un campo que pedía introducir datos, ese campo es vulnerable a XSS (Cross-Site Scripting).
+
+Pero tiene configuradas una cabeceras de Content Security Policy (CSP) para evitar estos ataques.
+
+```sh
+Content-Security-Policy: default-src 'self' 'unsafe-inline';script-src 'self' https://cdn.jsdelivr.net;style-src 'self' https://fonts.googleapis.com;font-src 'self' https://fonts.gstatic.com;img-src 'self';object-src 'none';frame-src 'none';connect-src 'self';upgrade-insecure-requests;base-uri 'self';form-action 'self';frame-ancestors 'self';script-src-attr 'none'
+```
+
+
+
 
