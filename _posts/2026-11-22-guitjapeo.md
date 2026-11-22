@@ -21,3 +21,77 @@ tags:
   - Cookie Hijacking
 ---
 
+<p align="center">
+  <img src="/assets/images/guitjapeo.PNG" alt="crta" width="500">
+</p>
+
+<div class="notice" style="border-left: 4px solid #ff4444; background-color: #2a1515; color: #ffdddd;">
+  <strong style="color: #ff4444;">[+] DISCLAIMER</strong><br><br>
+  Todo el contenido, información, ejemplos o conocimientos presentados en este sitio tienen <strong>exclusivamente fines educativos, formativos y éticos.</strong><br><br>
+  El objetivo es promover el aprendizaje y la comprensión responsable de los conceptos explicados. <strong>No se pretende fomentar, facilitar ni promover actividades ilegales, dañinas o no autorizadas.</strong>
+</div>
+
+Vamos a empezar lanzando trazas ICMP con la máquina víctima para ver si tenemos conectividad.
+
+```sh
+❯ ping -c2 192.168.91.227
+PING 192.168.91.227 (192.168.91.227) 56(84) bytes of data.
+64 bytes from 192.168.91.227: icmp_seq=1 ttl=64 time=0.613 ms
+64 bytes from 192.168.91.227: icmp_seq=2 ttl=64 time=0.332 ms
+
+--- 192.168.91.227 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1006ms
+rtt min/avg/max/mdev = 0.332/0.472/0.613/0.140 ms
+```
+
+Vemos que efectivamente tenemos conectividad, basándonos en el ttl aunque sea manipulable sabemos que estamos ante una máquina con SO Linux. Ahora vamos a seguir con un `escaneo de red` para enumerar puertos abiertos.
+
+```sh
+❯ nmap -p- --open -sS --min-rate 5000 -n -Pn 192.168.91.227 -oG info_ports1
+```
+
+
+```sh
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+443/tcp open  https
+```
+
+Ahora como segundo paso vamos a enumerar `versiones` y `servicios` de dichos puertos.
+
+```sh
+❯ nmap -p22,80,443 -sCV 192.168.91.227
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-11-22 12:50 CET
+Nmap scan report for 192.168.91.227
+Host is up (0.00034s latency).
+
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 9.2p1 Debian 2+deb12u3 (protocol 2.0)
+| ssh-hostkey: 
+|   256 ae:f7:30:5e:e8:28:bb:0e:cd:8e:5e:9c:33:f0:0a:cd (ECDSA)
+|_  256 04:50:bf:6f:21:23:ba:3a:c0:d2:89:d3:19:60:b1:03 (ED25519)
+80/tcp  open  http     nginx 1.22.1
+|_http-server-header: nginx/1.22.1
+|_http-title: Welcome to nginx!
+443/tcp open  ssl/http nginx 1.22.1
+| ssl-cert: Subject: commonName=guitjapeo.thl/organizationName=Company/stateOrProvinceName=State/countryName=US
+| Not valid before: 2024-09-21T01:00:07
+|_Not valid after:  2025-09-21T01:00:07
+|_ssl-date: TLS randomness does not represent time
+|_http-server-header: nginx/1.22.1
+|_http-title: Animaci\xC3\xB3n Personalizada
+| tls-alpn: 
+|   http/1.1
+|   http/1.0
+|_  http/0.9
+MAC Address: 00:0C:29:E2:D5:CD (VMware)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+```
+
+Encontramos una web con el dominio `guitjapeo.thl`, lo añadimos a `/etc/hosts` para poder resolverlo e accedemos, el virtualhost default y los virtualhost en el puerto 80 nos redireccionan a https://guitjapeo.thl en el puerto 443 con un certificado auto-firmado.
+
+```sh
+❯ sudo echo '192.168.91.227 guitjapeo.thl' | sudo tee -a /etc/hosts
+```
+
