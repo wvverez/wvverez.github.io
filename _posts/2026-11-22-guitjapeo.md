@@ -97,3 +97,43 @@ Encontramos una web con el dominio `guitjapeo.thl`, lo añadimos a `/etc/hosts` 
 ❯ sudo echo '192.168.91.227 guitjapeo.thl' | sudo tee -a /etc/hosts
 ```
 
+En la página principal de primeras no encontramos nada de lo que poder abusar así que lo siguiente que haremos será hacer `fuzzing web` para buscar posibles rutas o directorios de los que poder abusar.
+
+```sh
+❯ ffuf -w /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt -u "https://guitjapeo.thl/FUZZ" -e .php,.html,.txt,.md,.sh -fs 1110
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.1.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : https://guitjapeo.thl/FUZZ
+ :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt
+ :: Extensions       : .php .html .txt .md .sh 
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter           : Response size: 1110
+________________________________________________
+
+login                   [Status: 200, Size: 808, Words: 120, Lines: 27, Duration: 64ms]
+register                [Status: 200, Size: 795, Words: 118, Lines: 29, Duration: 59ms]
+css                     [Status: 301, Size: 153, Words: 6, Lines: 11, Duration: 30ms]
+Login                   [Status: 200, Size: 808, Words: 120, Lines: 27, Duration: 27ms]
+js                      [Status: 301, Size: 152, Words: 6, Lines: 11, Duration: 24ms]
+messages                [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 27ms]
+logout                  [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 24ms]
+Register                [Status: 200, Size: 795, Words: 118, Lines: 29, Duration: 28ms]
+Logout                  [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 24ms]
+Messages                [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 24ms]
+```
+
+Ahora podemos entrar en `https://guitjapeo.thl/register` y crear una cuenta. Después nos redirige a `login` nos logueamos y una vez hecho eso vemos un panel en el que podemos mandar mensajes a un administrador
