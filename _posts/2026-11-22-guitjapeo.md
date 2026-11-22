@@ -31,6 +31,8 @@ tags:
   El objetivo es promover el aprendizaje y la comprensión responsable de los conceptos explicados. <strong>No se pretende fomentar, facilitar ni promover actividades ilegales, dañinas o no autorizadas.</strong>
 </div>
 
+# Enumeración Inicial
+
 Vamos a empezar lanzando trazas ICMP con la máquina víctima para ver si tenemos conectividad.
 
 ```sh
