@@ -97,6 +97,8 @@ Encontramos una web con el dominio `guitjapeo.thl`, lo añadimos a `/etc/hosts` 
 ❯ sudo echo '192.168.91.227 guitjapeo.thl' | sudo tee -a /etc/hosts
 ```
 
+# Enumeración Web
+
 En la página principal de primeras no encontramos nada de lo que poder abusar así que lo siguiente que haremos será hacer `fuzzing web` para buscar posibles rutas o directorios de los que poder abusar.
 
 ```sh
@@ -136,4 +138,82 @@ Logout                  [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 24
 Messages                [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 24ms]
 ```
 
-Ahora podemos entrar en `https://guitjapeo.thl/register` y crear una cuenta. Después nos redirige a `login` nos logueamos y una vez hecho eso vemos un panel en el que podemos mandar mensajes a un administrador
+Ahora podemos entrar en `https://guitjapeo.thl/register` y crear una cuenta. Después nos redirige a `login` nos logueamos y una vez hecho eso vemos un panel en el que podemos mandar mensajes a un administrador.
+
+Es una API donde se envían los mensajes, podemos hacer fuerza bruta a partir de esa ruta para ver si encontramos algún endpoint que merezca la pena. Es decir fuzzing para de endpoints de esta API.
+
+```sh
+❯ ffuf -w /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt -u "https://guitjapeo.thl/api/FUZZ" -e .php,.html,.txt,.md,.sh -fs 1110
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.1.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : https://guitjapeo.thl/api/FUZZ
+ :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt
+ :: Extensions       : .php .html .txt .md .sh 
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter           : Response size: 1110
+________________________________________________
+
+info                    [Status: 200, Size: 207, Words: 5, Lines: 1, Duration: 27ms]
+users                   [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 27ms]
+messages                [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 33ms]
+Info                    [Status: 200, Size: 207, Words: 5, Lines: 1, Duration: 28ms]
+Users                   [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 25ms]
+```
+
+Como mucho tenemos el info que nos devuelve los headers para ir recopilando información.
+
+```sh
+❯ curl -k https://guitjapeo.thl/api/info | jq
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   179 100   179   0     0 25571     0  --:--:-- --:--:-- --:--:-- 29833
+{
+  "host": "guitjapeo.thl",
+  "x-real-ip": "192.168.91.191",
+  "x-forwarded-for": "192.168.91.191",
+  "x-forwarded-proto": "https",
+  "connection": "close",
+  "user-agent": "curl/8.17.0",
+  "accept": "*/*"
+}
+```
+
+El formulario de mensajes pide 2 cosas para mandar a `Administrador` un mensaje y una url. Podemos hacer una comprobación de pasarle nuestra IP como URL y montarnos un servidor con Python del lado de atacante.
+
+```sh
+Mensaje: Test wvverez
+URL: http://192.168.91.191
+```
+
+Y de el otro lado veremos lo siguiente.
+
+```sh
+❯ python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+192.168.91.227 - - [22/Nov/2026 15:44:22] "GET / HTTP/1.1" 200 -
+192.168.91.227 - - [22/Nov/2026 15:44:22] code 404, message File not found
+192.168.91.227 - - [22/Nov/2026 15:44:22] "GET /favicon.ico HTTP/1.1" 404 -
+192.168.91.227 - - [22/Nov/2026 15:44:39] "GET / HTTP/1.1" 200 -
+192.168.91.227 - - [22/Nov/2026 15:44:39] code 404, message File not found
+192.168.91.227 - - [22/Nov/2026 15:44:39] "GET /favicon.ico HTTP/1.1" 404 -
+192.168.91.227 - - [22/Nov/2026 15:44:56] "GET / HTTP/1.1" 200 -
+192.168.91.227 - - [22/Nov/2026 15:44:56] code 404, message File not found
+192.168.91.227 - - [22/Nov/2026 15:44:56] "GET /favicon.ico HTTP/1.1" 404 -
+```
+
+
